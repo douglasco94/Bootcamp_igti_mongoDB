@@ -218,6 +218,30 @@ app.get('/account/topBalance', async (req, res) => {
   }
 });
 
+app.put('/student/:id', async (req, res) => {
+  try {
+    const { agencia, conta, balance } = req.body;
+
+    if (!agencia || !conta || !balance) {
+      return res.status(400).send(error);
+    }
+
+    const findAccount = await accountModel.findOne({ agencia, conta });
+
+    if (!findAccount) {
+      res.status(400).send(error);
+    }
+
+    findAccount.balance = findAccount.balance + balance;
+
+    await findAccount.save();
+
+    res.send(findAccount);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 app.patch('/account/transferTopBalances', async (req, res) => {
   try {
     const findAgencies = await accountModel.distinct('agencia');
