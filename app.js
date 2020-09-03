@@ -1,8 +1,11 @@
+/*Imports*/
+
 import express from 'express';
 import mongoose from 'mongoose';
 
 import { accountRouter } from './routes/accountRouter.js';
 
+/*Conexão com mongoDB */
 (async () => {
   try {
     await mongoose.connect(
