@@ -2,12 +2,13 @@
 
 import express from 'express';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
 import { accountRouter } from './routes/accountRouter.js';
 
 const app = express();
 
-require('dotenv').config();
+dotenv.config();
 
 /*Conexão com mongoDB */
 (async () => {
@@ -15,7 +16,7 @@ require('dotenv').config();
     await mongoose.connect(
       `mongodb+srv://
         {$process.env.USERDB} 
-        : 
+        :
         {$process.env.PWDDB}
         @cluster0.wk3aw.mongodb.net/myBank?retryWrites=true&w=majority`,
       {
